@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class League {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
