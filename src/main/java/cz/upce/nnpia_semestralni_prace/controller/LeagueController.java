@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/leagues")
+@RequestMapping("/league")
 public class LeagueController {
 }

@@ -1,27 +1,31 @@
 package cz.upce.nnpia_semestralni_prace.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import cz.upce.nnpia_semestralni_prace.domain.Club;
-import cz.upce.nnpia_semestralni_prace.domain.Country;
 import cz.upce.nnpia_semestralni_prace.domain.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PlayerDto {
-    private Long id;
+@NoArgsConstructor
+public class PlayerInputDto {
+    @NotNull
     private String name;
+    @Past
     private LocalDate dateOfBirth;
+    @Positive
     private Integer height;
+    @Positive
     private Double weight;
     private Player.Position position;
     private String photoPath;
-    private Club club;
-    private Country country;
+    private Long clubId;
+    private Long countryId;
 }
