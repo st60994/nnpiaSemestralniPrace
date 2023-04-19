@@ -33,7 +33,7 @@ public class PlayerController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<PlayerDto> getPlayerJson(@PathVariable final Long id) throws ResourceNotFoundException {
-        var result = playerService.findById(id);
+        Player result = playerService.findById(id);
         return ResponseEntity.ok(result.toDto());
     }
 
@@ -42,10 +42,30 @@ public class PlayerController {
         Club club = clubService.findById(playerInputDto.getClubId());
         Country country = countryService.findById(playerInputDto.getCountryId());
 
-        var result = playerService.create(toEntity(playerInputDto, club, country));
+        Player result = playerService.create(toEntity(playerInputDto, club, country));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(result.toDto());
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PlayerDto> updatePlayer(@PathVariable final Long id, @RequestBody @Validated PlayerInputDto playerInputDto) throws ResourceNotFoundException {
+        Player updatedPlayer = playerService.updatePlayer(id, playerInputDto);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(updatedPlayer.toDto());
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
+        try {
+
+            playerService.deletePlayer(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     private static Player toEntity(final PlayerInputDto playerInputDto, Club club, Country country) {

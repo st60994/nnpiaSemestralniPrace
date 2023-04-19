@@ -1,5 +1,6 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import cz.upce.nnpia_semestralni_prace.dto.CountryDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,8 @@ public class Country {
 
     @Column
     private String name;
+    @Column
+    private String abbreviation;
 
     @Column
     private String flagPath;
@@ -30,4 +33,19 @@ public class Country {
     @OneToMany(mappedBy = "playerCountry")
     @EqualsAndHashCode.Exclude
     private List<Player> countryPlayers = Collections.emptyList();
+
+    public Country(String name, String abbreviation, String flagPath) {
+        this.name = name;
+        this.abbreviation = abbreviation;
+        this.flagPath = flagPath;
+    }
+
+    public CountryDto toDto() {
+        return new CountryDto(
+                getId(),
+                getName(),
+                getAbbreviation(),
+                getFlagPath()
+        );
+    }
 }

@@ -1,13 +1,14 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cz.upce.nnpia_semestralni_prace.dto.ClubDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Club {
     private String nickName;
 
     @Column
-    private LocalDateTime foundationDate;
+    private LocalDate foundationDate;
 
     @Column
     private String coachName;
@@ -64,8 +65,22 @@ public class Club {
     private List<Player> clubPlayers = Collections.emptyList();
 
     @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
+    @JoinColumn(name = "country_id")
     @ToString.Exclude
     @JsonIgnore
     private Country clubCountry;
+
+    public ClubDto toDto() {
+        return new ClubDto(
+                getId(),
+                getName(),
+                getNickName(),
+                getFoundationDate(),
+                getCoachName(),
+                getLocation(),
+                getImgPath(),
+                getDescription(),
+                getClubCountry()
+        );
+    }
 }
