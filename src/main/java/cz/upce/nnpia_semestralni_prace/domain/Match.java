@@ -1,6 +1,8 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cz.upce.nnpia_semestralni_prace.dto.LeagueDto;
+import cz.upce.nnpia_semestralni_prace.dto.MatchDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -43,4 +45,25 @@ public class Match {
     @ToString.Exclude
     @JsonIgnore
     private League league;
+
+    public Match(LocalDateTime date, Integer homeTeamScore, Integer awayTeamScore, Club homeTeam, Club awayTeam, League league) {
+        this.date = date;
+        this.homeTeamScore = homeTeamScore;
+        this.awayTeamScore = awayTeamScore;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.league = league;
+    }
+
+    public MatchDto toDto() {
+        return new MatchDto(
+                getId(),
+                getDate(),
+                getHomeTeamScore(),
+                getAwayTeamScore(),
+                getHomeTeam(),
+                getAwayTeam(),
+                getLeague()
+        );
+    }
 }

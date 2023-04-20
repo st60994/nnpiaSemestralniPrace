@@ -1,14 +1,14 @@
-package cz.upce.nnpia_semestralni_prace.dto;
+package cz.upce.nnpia_semestralni_prace.dto.input;
 
-import cz.upce.nnpia_semestralni_prace.domain.Country;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +18,7 @@ public class ClubInputDto {
     private String name;
     @NotNull
     private String nickName;
+    @Past
     private LocalDate foundationDate;
     private String coachName;
     private String location;
@@ -25,4 +26,5 @@ public class ClubInputDto {
     @Size(max = 1024)
     private String description;
     private Long clubCountryId;
+    private List<Long> leagueIds;
 }

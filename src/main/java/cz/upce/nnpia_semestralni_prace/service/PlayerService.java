@@ -3,11 +3,10 @@ package cz.upce.nnpia_semestralni_prace.service;
 import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.Country;
 import cz.upce.nnpia_semestralni_prace.domain.Player;
-import cz.upce.nnpia_semestralni_prace.dto.PlayerInputDto;
+import cz.upce.nnpia_semestralni_prace.dto.input.PlayerInputDto;
 import cz.upce.nnpia_semestralni_prace.repository.PlayerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;

@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,6 +70,18 @@ public class Club {
     @ToString.Exclude
     @JsonIgnore
     private Country clubCountry;
+
+    public Club(String name, String nickName, LocalDate foundationDate, String coachName, String location, String imgPath, String description, Country clubCountry, List<League> leagues) {
+        this.name = name;
+        this.nickName = nickName;
+        this.foundationDate = foundationDate;
+        this.coachName = coachName;
+        this.location = location;
+        this.imgPath = imgPath;
+        this.description = description;
+        this.clubCountry = clubCountry;
+        this.leagues = leagues;
+    }
 
     public ClubDto toDto() {
         return new ClubDto(

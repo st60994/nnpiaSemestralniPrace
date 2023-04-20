@@ -1,5 +1,6 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import cz.upce.nnpia_semestralni_prace.dto.LeagueDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,18 @@ public class League {
     @EqualsAndHashCode.Exclude
     private List<Club> clubs = Collections.emptyList();
 
+    public League(String name, LocalDateTime foundationDate, String imgPath) {
+        this.name = name;
+        this.foundationDate = foundationDate;
+        this.imgPath = imgPath;
+    }
+
+    public LeagueDto toDto() {
+        return new LeagueDto(
+                getId(),
+                getName(),
+                getFoundationDate(),
+                getImgPath()
+        );
+    }
 }

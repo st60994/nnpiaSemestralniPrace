@@ -3,7 +3,7 @@ package cz.upce.nnpia_semestralni_prace.service;
 import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.Country;
 import cz.upce.nnpia_semestralni_prace.domain.Player;
-import cz.upce.nnpia_semestralni_prace.dto.CountryInputDto;
+import cz.upce.nnpia_semestralni_prace.dto.input.CountryInputDto;
 import cz.upce.nnpia_semestralni_prace.repository.ClubRepository;
 import cz.upce.nnpia_semestralni_prace.repository.CountryRepository;
 import cz.upce.nnpia_semestralni_prace.repository.PlayerRepository;

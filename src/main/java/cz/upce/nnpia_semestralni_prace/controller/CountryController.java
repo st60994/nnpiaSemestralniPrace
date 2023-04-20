@@ -1,13 +1,11 @@
 package cz.upce.nnpia_semestralni_prace.controller;
 
-import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.Country;
-import cz.upce.nnpia_semestralni_prace.domain.Player;
 import cz.upce.nnpia_semestralni_prace.dto.*;
+import cz.upce.nnpia_semestralni_prace.dto.input.CountryInputDto;
 import cz.upce.nnpia_semestralni_prace.service.CountryService;
 import cz.upce.nnpia_semestralni_prace.service.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -4,7 +4,7 @@ import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.Country;
 import cz.upce.nnpia_semestralni_prace.domain.Player;
 import cz.upce.nnpia_semestralni_prace.dto.PlayerDto;
-import cz.upce.nnpia_semestralni_prace.dto.PlayerInputDto;
+import cz.upce.nnpia_semestralni_prace.dto.input.PlayerInputDto;
 import cz.upce.nnpia_semestralni_prace.service.ClubService;
 import cz.upce.nnpia_semestralni_prace.service.CountryService;
 import cz.upce.nnpia_semestralni_prace.service.PlayerService;

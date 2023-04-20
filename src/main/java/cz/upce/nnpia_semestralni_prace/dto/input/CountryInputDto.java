@@ -1,4 +1,4 @@
-package cz.upce.nnpia_semestralni_prace.dto;
+package cz.upce.nnpia_semestralni_prace.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
