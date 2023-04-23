@@ -49,8 +49,22 @@ public class MatchController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<MatchDto> updateMatch(@PathVariable Long id, @RequestBody @Validated MatchInputDto matchInputDto) {
+    public ResponseEntity<MatchDto> updateMatch(@PathVariable Long id, @RequestBody @Validated MatchInputDto matchInputDto) throws ResourceNotFoundException {
+        Match updatedMatch = matchService.update(id, matchInputDto);
 
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(updatedMatch.toDto());
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
+        try {
+            matchService.deleteMatch(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     private static Match toEntity(MatchInputDto matchInputDto, Club homeTeam, Club awayTeam, League league) {
