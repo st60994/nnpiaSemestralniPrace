@@ -1,6 +1,8 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.upce.nnpia_semestralni_prace.dto.ClubDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,10 +47,12 @@ public class Club {
 
     @OneToMany(mappedBy = "homeTeam")
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private List<Match> homeMatches = Collections.emptyList();
 
     @OneToMany(mappedBy = "awayTeam")
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private List<Match> awayMatches = Collections.emptyList();
 
     @ManyToMany
@@ -58,17 +62,18 @@ public class Club {
             inverseJoinColumns = @JoinColumn(name = "league_id")
     )
     @ToString.Exclude
-    @JsonIgnore
+    @JsonBackReference
     private List<League> leagues = Collections.emptyList();
 
     @OneToMany(mappedBy = "club")
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private List<Player> clubPlayers = Collections.emptyList();
 
     @ManyToOne
     @JoinColumn(name = "country_id")
     @ToString.Exclude
-    @JsonIgnore
+    @JsonManagedReference
     private Country clubCountry;
 
     public Club(String name, String nickName, LocalDate foundationDate, String coachName, String location, String imgPath, String description, Country clubCountry, List<League> leagues) {

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/matches")
 @AllArgsConstructor
 public class MatchController {
 
@@ -27,8 +27,11 @@ public class MatchController {
     private final LeagueService leagueService;
 
     @GetMapping("")
-    public List<Match> findAll() {
-        return matchService.findAll();
+    public ResponseEntity<List<Match>> findAll() {
+        // TODO při get endpointech posílat jiný object, kde mám jen zkratku a fotku?
+        List<Match> matches = matchService.findAll();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(matches);
     }
 
     @GetMapping("/{id}")

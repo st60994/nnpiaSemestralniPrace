@@ -2,6 +2,7 @@ package cz.upce.nnpia_semestralni_prace.security;
 
 import cz.upce.nnpia_semestralni_prace.filters.JwtRequestFilter;
 import cz.upce.nnpia_semestralni_prace.service.MyUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
     private MyUserDetailsService myUserDetailsService;
-    @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Override
@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/authenticate", "/graphql", "/graphiql")
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/authenticate", "/graphql", "/graphiql", "/matches")
                 .permitAll().anyRequest().authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

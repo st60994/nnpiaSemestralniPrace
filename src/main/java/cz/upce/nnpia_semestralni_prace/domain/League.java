@@ -1,5 +1,6 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import cz.upce.nnpia_semestralni_prace.dto.LeagueDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,10 +31,12 @@ public class League {
 
     @OneToMany(mappedBy = "league")
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private List<Match> matches = Collections.emptyList();
 
     @ManyToMany(mappedBy = "leagues")
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private List<Club> clubs = Collections.emptyList();
 
     public League(String name, LocalDateTime foundationDate, String imgPath) {

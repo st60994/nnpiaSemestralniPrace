@@ -1,6 +1,8 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.upce.nnpia_semestralni_prace.dto.LeagueDto;
 import cz.upce.nnpia_semestralni_prace.dto.MatchDto;
 import lombok.Data;
@@ -29,21 +31,21 @@ public class Match {
     private Integer awayTeamScore;
 
     @ManyToOne
-    @JoinColumn(name = "home_team_id", nullable = false)
+    @JoinColumn(name = "home_team_id")
     @ToString.Exclude
-    @JsonIgnore
+    @JsonManagedReference
     private Club homeTeam;
 
     @ManyToOne
-    @JoinColumn(name = "away_team_id", nullable = false)
+    @JoinColumn(name = "away_team_id")
     @ToString.Exclude
-    @JsonIgnore
+    @JsonManagedReference
     private Club awayTeam;
 
     @ManyToOne
     @JoinColumn(name = "league_id", nullable = false)
     @ToString.Exclude
-    @JsonIgnore
+    @JsonManagedReference
     private League league;
 
     public Match(LocalDateTime date, Integer homeTeamScore, Integer awayTeamScore, Club homeTeam, Club awayTeam, League league) {
