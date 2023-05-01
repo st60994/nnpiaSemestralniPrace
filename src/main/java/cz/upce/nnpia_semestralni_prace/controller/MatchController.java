@@ -10,6 +10,10 @@ import cz.upce.nnpia_semestralni_prace.service.LeagueService;
 import cz.upce.nnpia_semestralni_prace.service.MatchService;
 import cz.upce.nnpia_semestralni_prace.service.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,9 +31,16 @@ public class MatchController {
     private final LeagueService leagueService;
 
     @GetMapping("")
-    public ResponseEntity<List<Match>> findAll() {
-        // TODO při get endpointech posílat jiný object, kde mám jen zkratku a fotku?
-        List<Match> matches = matchService.findAll();
+    public ResponseEntity<Page<Match>> findAll(@RequestParam(value = "leagueId", required = false) Long leagueId,
+                                               @RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "1") int size) throws ResourceNotFoundException {
+        Page<Match> matches;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("date")));
+        if (leagueId == null) {
+            matches = matchService.findAll(pageable);
+        } else {
+            matches = matchService.findAllWithLeagueId(leagueId, pageable);
+        }
         return ResponseEntity.status(HttpStatus.OK)
                 .body(matches);
     }

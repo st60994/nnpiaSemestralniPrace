@@ -6,6 +6,8 @@ import cz.upce.nnpia_semestralni_prace.domain.Match;
 import cz.upce.nnpia_semestralni_prace.dto.input.MatchInputDto;
 import cz.upce.nnpia_semestralni_prace.repository.MatchRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,13 @@ public class MatchService {
     private final ClubService clubService;
     private final LeagueService leagueService;
 
-    public List<Match> findAll() {
-        return matchRepository.findAll();
+    public Page<Match> findAll(Pageable pageable) {
+        return matchRepository.findAll(pageable);
+    }
+
+    public Page<Match> findAllWithLeagueId(Long leagueId, Pageable pageable) throws ResourceNotFoundException {
+        League league = leagueService.findById(leagueId);
+        return matchRepository.findAllByLeagueEquals(league, pageable);
     }
 
     public Match findById(Long id) throws ResourceNotFoundException {
