@@ -71,6 +71,7 @@ public class PlayerController {
     private static Player toEntity(final PlayerInputDto playerInputDto, Club club, Country country) {
         return new Player(
                 playerInputDto.getName(),
+                playerInputDto.getShirtNumber(),
                 playerInputDto.getDateOfBirth(),
                 playerInputDto.getHeight(),
                 playerInputDto.getWeight(),

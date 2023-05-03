@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 public class PlayerInputDto {
     @NotNull
     private String name;
+    @Positive
+    private Integer shirtNumber;
     @Past
     private LocalDate dateOfBirth;
     @Positive

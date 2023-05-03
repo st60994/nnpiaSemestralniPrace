@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class PlayerDto {
     private Long id;
     private String name;
+    private Integer shirtNumber;
     private LocalDate dateOfBirth;
     private Integer height;
     private Double weight;

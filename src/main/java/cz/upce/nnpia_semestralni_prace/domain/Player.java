@@ -23,6 +23,9 @@ public class Player {
     private Long id;
 
     @Column
+    private Integer shirtNumber;
+
+    @Column
     private String name;
 
     @Column
@@ -52,8 +55,9 @@ public class Player {
     @JsonIgnore
     private Country playerCountry;
 
-    public Player(String name, LocalDate dateOfBirth, Integer height, Double weight, String photoPath, Position position, Club club, Country country) {
+    public Player(String name, Integer shirtNumber, LocalDate dateOfBirth, Integer height, Double weight, String photoPath, Position position, Club club, Country country) {
         this.name = name;
+        this.shirtNumber = shirtNumber;
         this.dateOfBirth = dateOfBirth;
         this.height = height;
         this.weight = weight;
@@ -67,6 +71,7 @@ public class Player {
         return new PlayerDto(
                 getId(),
                 getName(),
+                getShirtNumber(),
                 getDateOfBirth(),
                 getHeight(),
                 getWeight(),
