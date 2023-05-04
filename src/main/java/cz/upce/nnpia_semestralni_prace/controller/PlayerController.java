@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 @AllArgsConstructor
 public class PlayerController {
 
@@ -27,8 +27,10 @@ public class PlayerController {
     private final CountryService countryService;
 
     @GetMapping("")
-    public List<Player> findAll() {
-        return playerService.findAll();
+    public ResponseEntity<List<Player>> findAll(@RequestParam(value = "clubId") Long clubId) throws ResourceNotFoundException {
+        List<Player> foundPlayers = playerService.findAll(clubId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(foundPlayers);
     }
 
     @GetMapping(path = "/{id}")

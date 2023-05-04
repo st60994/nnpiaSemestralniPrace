@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/club")
+@RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
     private final CountryService countryService;

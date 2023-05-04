@@ -21,8 +21,9 @@ public class PlayerService {
     private final CountryService countryService;
 
     @Transactional
-    public List<Player> findAll() {
-        return playerRepository.findAll();
+    public List<Player> findAll(Long clubId) throws ResourceNotFoundException {
+        Club club = clubService.findById(clubId);
+        return playerRepository.findAllByClubEquals(club);
     }
 
     @Transactional
