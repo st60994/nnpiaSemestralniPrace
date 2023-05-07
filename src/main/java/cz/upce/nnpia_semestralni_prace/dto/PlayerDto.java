@@ -19,6 +19,7 @@ public class PlayerDto {
     private String name;
     private Integer shirtNumber;
     private LocalDate dateOfBirth;
+    private Integer age;
     private Integer height;
     private Double weight;
     private Player.Position position;

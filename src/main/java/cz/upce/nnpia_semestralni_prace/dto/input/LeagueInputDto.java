@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Past;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,6 +14,6 @@ import java.time.LocalDateTime;
 public class LeagueInputDto {
     private String name;
     @Past
-    private LocalDateTime foundationDate;
+    private LocalDate foundationDate;
     private String imgPath;
 }

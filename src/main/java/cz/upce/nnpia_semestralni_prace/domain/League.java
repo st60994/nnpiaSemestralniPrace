@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,7 @@ public class League {
     private String name;
 
     @Column
-    private LocalDateTime foundationDate;
+    private LocalDate foundationDate;
 
     @Column
     private String imgPath;
@@ -39,7 +40,7 @@ public class League {
     @JsonBackReference
     private List<Club> clubs = Collections.emptyList();
 
-    public League(String name, LocalDateTime foundationDate, String imgPath) {
+    public League(String name, LocalDate foundationDate, String imgPath) {
         this.name = name;
         this.foundationDate = foundationDate;
         this.imgPath = imgPath;

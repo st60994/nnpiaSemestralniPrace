@@ -27,10 +27,11 @@ public class PlayerController {
     private final CountryService countryService;
 
     @GetMapping("")
-    public ResponseEntity<List<Player>> findAll(@RequestParam(value = "clubId") Long clubId) throws ResourceNotFoundException {
+    public ResponseEntity<List<PlayerDto>> findAll(@RequestParam(value = "clubId") Long clubId) throws ResourceNotFoundException {
         List<Player> foundPlayers = playerService.findAll(clubId);
+        List<PlayerDto> playerDtos = foundPlayers.stream().map(Player::toDto).toList();
         return ResponseEntity.status(HttpStatus.OK)
-                .body(foundPlayers);
+                .body(playerDtos);
     }
 
     @GetMapping(path = "/{id}")

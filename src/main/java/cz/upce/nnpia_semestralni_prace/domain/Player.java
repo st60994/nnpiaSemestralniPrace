@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 @Entity
 @Data
@@ -67,12 +68,17 @@ public class Player {
         this.playerCountry = country;
     }
 
+    private Integer calculateAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
+
     public PlayerDto toDto() {
         return new PlayerDto(
                 getId(),
                 getName(),
                 getShirtNumber(),
                 getDateOfBirth(),
+                calculateAge(),
                 getHeight(),
                 getWeight(),
                 getPosition(),
