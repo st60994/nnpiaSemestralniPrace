@@ -29,8 +29,16 @@ public class ClubController {
     private final LeagueService leagueService;
 
     @GetMapping("")
-    public List<Club> findAll() {
-        return clubService.findAll();
+    public ResponseEntity<List<ClubDto>> findAll(@RequestParam(value = "leagueId") Long leagueId) throws ResourceNotFoundException {
+        List<Club> foundClubs;
+        if (leagueId == null) {
+            foundClubs = clubService.findAll();
+        } else {
+            foundClubs = clubService.findAllWithLeagueId(leagueId);
+        }
+        List<ClubDto> clubsDtos = foundClubs.stream().map(Club::toDto).toList();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(clubsDtos);
     }
 
     @GetMapping(path = "/{id}")

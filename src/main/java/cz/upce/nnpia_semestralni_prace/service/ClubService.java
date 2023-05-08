@@ -70,4 +70,9 @@ public class ClubService {
         updatedClub.setFoundationDate(clubInputDto.getFoundationDate());
         return updatedClub;
     }
+
+    public List<Club> findAllWithLeagueId(Long leagueId) throws ResourceNotFoundException {
+        League league = leagueService.findById(leagueId);
+        return clubRepository.findAllByLeagues(league);
+    }
 }
