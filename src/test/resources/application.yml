@@ -1,0 +1,19 @@
+spring:
+  beans:
+    myRestTemplate:
+      class: org.springframework.web.client.RestTemplate
+      properties:
+        connectTimeout: 10000
+        readTimeout: 10000
+  datasource:
+    url: jdbc:h2:mem:testdb
+
+
+  liquibase:
+    enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+

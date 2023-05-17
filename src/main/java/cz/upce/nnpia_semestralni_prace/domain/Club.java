@@ -4,20 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.upce.nnpia_semestralni_prace.dto.ClubDto;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Club {
 
     @Id
@@ -48,12 +47,12 @@ public class Club {
     @OneToMany(mappedBy = "homeTeam")
     @EqualsAndHashCode.Exclude
     @JsonBackReference
-    private List<Match> homeMatches = Collections.emptyList();
+    private List<Match> homeMatches = new ArrayList<>();
 
     @OneToMany(mappedBy = "awayTeam")
     @EqualsAndHashCode.Exclude
     @JsonBackReference
-    private List<Match> awayMatches = Collections.emptyList();
+    private List<Match> awayMatches = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -63,12 +62,12 @@ public class Club {
     )
     @ToString.Exclude
     @JsonBackReference
-    private List<League> leagues = Collections.emptyList();
+    private List<League> leagues = new ArrayList<>();
 
     @OneToMany(mappedBy = "club")
     @EqualsAndHashCode.Exclude
     @JsonBackReference
-    private List<Player> clubPlayers = Collections.emptyList();
+    private List<Player> clubPlayers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "country_id")
