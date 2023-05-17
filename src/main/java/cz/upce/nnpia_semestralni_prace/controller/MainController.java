@@ -1,6 +1,6 @@
 package cz.upce.nnpia_semestralni_prace.controller;
 
-import cz.upce.nnpia_semestralni_prace.dto.AuthenticationRequest;
+import cz.upce.nnpia_semestralni_prace.dto.input.AuthenticationRequest;
 import cz.upce.nnpia_semestralni_prace.dto.AuthenticationResponse;
 import cz.upce.nnpia_semestralni_prace.util.JwtUtil;
 import lombok.AllArgsConstructor;

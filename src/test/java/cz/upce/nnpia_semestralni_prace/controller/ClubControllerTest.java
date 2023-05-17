@@ -80,6 +80,7 @@ class ClubControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // TODO dokončit testy, kontrola pomocí assertEquals
     @Test
     @Transactional
     @Name(value = "Find all clubs with league request param")

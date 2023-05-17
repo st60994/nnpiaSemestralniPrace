@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+// TODO JPARepository
 @Repository
 public interface MatchRepository extends PagingAndSortingRepository<Match, Long> {
     Page<Match> findAll(Pageable pageable);
