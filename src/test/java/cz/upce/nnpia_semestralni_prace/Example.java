@@ -10,11 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Example {
-    public static final Club EXAMPLE_CLUB = new Club(100L, "club1", "nick",
+    public static final Club EXAMPLE_CLUB = new Club("club1", "nick",
             LocalDate.of(2000, 5, 21), "coach1", "location",
             "/example/pic.png", "desc",
-            Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(),
-            null);
+            null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
     private Example() {
 
@@ -23,11 +22,11 @@ public class Example {
     public static Club createExampleClubWithLeague(League league) {
         List<League> leagueList = new ArrayList<>();
         leagueList.add(league);
-        return new Club(100L, "club1", "nick",
+        return new Club("club1", "nick",
                 LocalDate.of(2000, 5, 21), "coach1", "location",
                 "/example/pic.png", "desc",
-                new ArrayList<>(),new ArrayList<>(), leagueList, new ArrayList<>(),
-                null);
+               null, new ArrayList<>(),  new ArrayList<>(),
+                leagueList);
 
     }
 }

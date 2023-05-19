@@ -1,6 +1,7 @@
 package cz.upce.nnpia_semestralni_prace.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import cz.upce.nnpia_semestralni_prace.Example;
 import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.League;
@@ -21,6 +22,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -78,6 +80,13 @@ class ClubControllerTest {
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().isOk());
+        MvcResult mvcResult = resultActions.andReturn();
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Club receivedClub = objectMapper.readValue(responseContent, Club.class);
+        boolean ret = (receivedClub.equals(club));
+        assertTrue(ret);
     }
 
     // TODO dokončit testy, kontrola pomocí assertEquals
@@ -101,5 +110,16 @@ class ClubControllerTest {
                         .header("Authorization", "Bearer " + token))
                 .andDo(print())
                 .andExpect(status().isOk());
+        MvcResult mvcResult = resultActions.andReturn();
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Club receivedClub = objectMapper.readValue(responseContent, Club.class);
+        boolean ret = (receivedClub.equals(club));
+        assertTrue(ret);
     }
+    //Club@5f9cb96f<Club(id=1, name=club1, nickName=nick, foundationDate=2000-05-21, coachName=coach1, location=location,
+    // imgPath=/example/pic.png, description=desc, homeMatches=[], awayMatches=[], clubPlayers=[])>
+    // Club@375376d5<Club(id=1, name=club1, nickName=nick, foundationDate=2000-05-21, coachName=coach1, location=location,
+    // imgPath=/example/pic.png, description=desc, homeMatches=[], awayMatches=[], clubPlayers=[])>
 }
