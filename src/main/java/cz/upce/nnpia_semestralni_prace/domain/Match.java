@@ -33,19 +33,19 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "home_team_id")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonBackReference("club-homeMatches")
     private Club homeTeam;
 
     @ManyToOne
     @JoinColumn(name = "away_team_id")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonBackReference("club-awayMatches")
     private Club awayTeam;
 
     @ManyToOne
     @JoinColumn(name = "league_id", nullable = false)
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonBackReference("league-matches")
     private League league;
 
     public Match(LocalDateTime date, Integer homeTeamScore, Integer awayTeamScore, Club homeTeam, Club awayTeam, League league) {

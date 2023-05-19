@@ -16,6 +16,7 @@ public class LeagueService {
 
     @Transactional
     public List<League> findAll() {
+        List<League> leagues = leagueRepository.findAll();
         return leagueRepository.findAll();
     }
 

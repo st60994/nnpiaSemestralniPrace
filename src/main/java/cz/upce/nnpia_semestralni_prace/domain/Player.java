@@ -1,7 +1,9 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.upce.nnpia_semestralni_prace.dto.PlayerDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,13 +49,13 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "club_id")
     @ToString.Exclude
-    @JsonIgnore
+    @JsonBackReference("club-players")
     private Club club;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
     @ToString.Exclude
-    @JsonIgnore
+    @JsonBackReference("country-players")
     private Country playerCountry;
 
     public Player(String name, Integer shirtNumber, LocalDate dateOfBirth, Integer height, Double weight, String photoPath, Position position, Club club, Country country) {

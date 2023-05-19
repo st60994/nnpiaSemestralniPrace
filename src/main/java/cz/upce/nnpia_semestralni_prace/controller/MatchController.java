@@ -3,6 +3,7 @@ package cz.upce.nnpia_semestralni_prace.controller;
 import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.League;
 import cz.upce.nnpia_semestralni_prace.domain.Match;
+import cz.upce.nnpia_semestralni_prace.dto.ClubDto;
 import cz.upce.nnpia_semestralni_prace.dto.MatchDto;
 import cz.upce.nnpia_semestralni_prace.dto.input.MatchInputDto;
 import cz.upce.nnpia_semestralni_prace.service.ClubService;
@@ -31,7 +32,7 @@ public class MatchController {
     private final LeagueService leagueService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Match>> findAll(@RequestParam(value = "leagueId", required = false) Long leagueId,
+    public ResponseEntity<Page<MatchDto>> findAll(@RequestParam(value = "leagueId", required = false) Long leagueId,
                                                @RequestParam(defaultValue = "0") int page,
                                                @RequestParam(defaultValue = "1") int size) throws ResourceNotFoundException {
         Page<Match> matches;
@@ -41,8 +42,9 @@ public class MatchController {
         } else {
             matches = matchService.findAllWithLeagueId(leagueId, pageable);
         }
+        Page<MatchDto> matchDtos = matches.map(Match::toDto);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(matches);
+                .body(matchDtos);
     }
 
     @GetMapping("/{id}")

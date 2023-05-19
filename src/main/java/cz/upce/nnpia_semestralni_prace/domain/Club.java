@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -46,12 +47,12 @@ public class Club {
 
     @OneToMany(mappedBy = "homeTeam")
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonManagedReference("club-homeMatches")
     private List<Match> homeMatches = new ArrayList<>();
 
     @OneToMany(mappedBy = "awayTeam")
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonManagedReference("club-awayMatches")
     private List<Match> awayMatches = new ArrayList<>();
 
     @ManyToMany
@@ -61,21 +62,22 @@ public class Club {
             inverseJoinColumns = @JoinColumn(name = "league_id")
     )
     @ToString.Exclude
-    @JsonBackReference
-    private List<League> leagues = new ArrayList<>();
+    @JsonIgnore
+    private List<League> leagues = Collections.emptyList();
 
     @OneToMany(mappedBy = "club")
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonManagedReference("club-players")
     private List<Player> clubPlayers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "country_id")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonBackReference("country-clubs")
     private Country clubCountry;
 
-    public Club(String name, String nickName, LocalDate foundationDate, String coachName, String location, String imgPath, String description, Country clubCountry, List<League> leagues) {
+    public Club(String name, String nickName, LocalDate foundationDate, String coachName, String location, String imgPath, String description, Country clubCountry,
+                List<Match> awayMatches, List<Match> homeMatches, List<League> leagues) {
         this.name = name;
         this.nickName = nickName;
         this.foundationDate = foundationDate;
@@ -85,6 +87,8 @@ public class Club {
         this.description = description;
         this.clubCountry = clubCountry;
         this.leagues = leagues;
+        this.awayMatches = awayMatches;
+        this.homeMatches = homeMatches;
     }
 
     public ClubDto toDto() {
@@ -99,5 +103,18 @@ public class Club {
                 getDescription(),
                 getClubCountry()
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Club club = (Club) o;
+        return Objects.equals(id, club.id) && Objects.equals(name, club.name) && Objects.equals(nickName, club.nickName) && Objects.equals(foundationDate, club.foundationDate) && Objects.equals(coachName, club.coachName) && Objects.equals(location, club.location) && Objects.equals(imgPath, club.imgPath) && Objects.equals(description, club.description) && Objects.equals(homeMatches, club.homeMatches) && Objects.equals(awayMatches, club.awayMatches) && Objects.equals(leagues, club.leagues) && Objects.equals(clubPlayers, club.clubPlayers) && Objects.equals(clubCountry, club.clubCountry);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, nickName, foundationDate, coachName, location, imgPath, description, homeMatches, awayMatches, leagues, clubPlayers, clubCountry);
     }
 }

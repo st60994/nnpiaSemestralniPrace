@@ -1,6 +1,8 @@
 package cz.upce.nnpia_semestralni_prace.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.upce.nnpia_semestralni_prace.dto.CountryDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,12 +31,12 @@ public class Country {
 
     @OneToMany(mappedBy = "clubCountry")
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonManagedReference("country-clubs")
     private List<Club> countryClubs = Collections.emptyList();
 
     @OneToMany(mappedBy = "playerCountry")
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonManagedReference("country-players")
     private List<Player> countryPlayers = Collections.emptyList();
 
     public Country(String name, String abbreviation, String flagPath) {

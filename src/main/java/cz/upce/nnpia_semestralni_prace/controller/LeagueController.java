@@ -1,6 +1,8 @@
 package cz.upce.nnpia_semestralni_prace.controller;
 
+import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.League;
+import cz.upce.nnpia_semestralni_prace.dto.ClubDto;
 import cz.upce.nnpia_semestralni_prace.dto.LeagueDto;
 import cz.upce.nnpia_semestralni_prace.dto.input.LeagueInputDto;
 import cz.upce.nnpia_semestralni_prace.service.LeagueService;
@@ -21,8 +23,11 @@ public class LeagueController {
     private final LeagueService leagueService;
 
     @GetMapping
-    public List<League> findAll() {
-        return leagueService.findAll();
+    public ResponseEntity<List<LeagueDto>> findAll() {
+        List<League> leagues = leagueService.findAll();
+        List<LeagueDto> leagueDtos = leagues.stream().map(League::toDto).toList();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(leagueDtos);
     }
 
     @GetMapping("/{id}")
