@@ -30,7 +30,7 @@ public class ClubController {
     private final LeagueService leagueService;
 
     @GetMapping("")
-    public ResponseEntity<List<ClubDto>> findAll(@RequestParam(value = "leagueId") Long leagueId) throws ResourceNotFoundException {
+    public ResponseEntity<List<ClubDto>> findAll(@RequestParam(value = "leagueId", required = false) Long leagueId) throws ResourceNotFoundException {
         List<Club> foundClubs;
         if (leagueId == null) {
             foundClubs = clubService.findAll();
