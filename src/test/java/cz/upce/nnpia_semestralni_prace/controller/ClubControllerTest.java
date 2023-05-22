@@ -3,8 +3,10 @@ package cz.upce.nnpia_semestralni_prace.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import cz.upce.nnpia_semestralni_prace.Example;
+import cz.upce.nnpia_semestralni_prace.domain.AppUser;
 import cz.upce.nnpia_semestralni_prace.domain.Club;
 import cz.upce.nnpia_semestralni_prace.domain.League;
+import cz.upce.nnpia_semestralni_prace.repository.AppUserRepository;
 import cz.upce.nnpia_semestralni_prace.repository.ClubRepository;
 import cz.upce.nnpia_semestralni_prace.util.JwtUtil;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +25,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
@@ -31,7 +32,6 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +43,8 @@ class ClubControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private AppUserRepository appUserRepository;
     @LocalServerPort
     private int port;
 
@@ -56,11 +58,14 @@ class ClubControllerTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
+        AppUser appUser = new AppUser("userName", "password", AppUser.Role.administrator);
+        appUserRepository.save(appUser);
     }
 
     @AfterEach
     void tearDown() {
         clubRepository.deleteAll();
+        appUserRepository.deleteAll();
     }
 
     @Test
@@ -89,7 +94,6 @@ class ClubControllerTest {
         assertTrue(ret);
     }
 
-    // TODO dokončit testy, kontrola pomocí assertEquals
     @Test
     @Transactional
     @Name(value = "Find all clubs with league request param")
@@ -115,11 +119,7 @@ class ClubControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         Club receivedClub = objectMapper.readValue(responseContent, Club.class);
-        boolean ret = (receivedClub.equals(club));
+        boolean ret = (receivedClub.toDto().equals(club.toDto()));
         assertTrue(ret);
     }
-    //Club@5f9cb96f<Club(id=1, name=club1, nickName=nick, foundationDate=2000-05-21, coachName=coach1, location=location,
-    // imgPath=/example/pic.png, description=desc, homeMatches=[], awayMatches=[], clubPlayers=[])>
-    // Club@375376d5<Club(id=1, name=club1, nickName=nick, foundationDate=2000-05-21, coachName=coach1, location=location,
-    // imgPath=/example/pic.png, description=desc, homeMatches=[], awayMatches=[], clubPlayers=[])>
 }

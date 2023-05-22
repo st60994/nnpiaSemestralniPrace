@@ -19,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("")
-public class MainController {
+public class AuthentificationController {
 
     private AuthenticationManager authenticationManager;
     private AppUserService appUserService;
